@@ -1,7 +1,7 @@
-# Meteoroid Client
+# Meteoroid CLI
 
 ## Overview
-Meteoroid Client is a command-line client for Meteoroid that  
+Meteoroid CLI is a command-line-interface for Meteoroid that
 integrating Function as a Service(FaaS) capabilities in FIWARE.
 
 ## Requirements
@@ -12,14 +12,13 @@ pbr    5.4.3+
 
 ## Usage
 
-### Start virtualenv and Install 
+### Start pipenv shell and Install
 
 ```
-virtualenv -p python3.8 xxxx
-source xxx/bin/active
-pip install .
+pipenv shell
+pipenv install
 ```
-### Example of use　
+### Example of use
 ```
 $ meteoroid result show 22
 +---------------+------------------+
