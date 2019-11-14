@@ -12,13 +12,16 @@ class FunctionShow(ShowOne):
     def get_parser(self, prog_name):
         parser = super().get_parser(prog_name)
         parser.add_argument('id', help='function id')
+        parser.add_argument('--code', action='store_true', help='Show the source code')
         return parser
 
     def take_action(self, parsed_args):
         response = FunctionClient().retrieve_function(
             id=parsed_args.id,
             fiware_service=parsed_args.fiwareservice,
-            fiware_service_path=parsed_args.fiwareservicepath)
+            fiware_service_path=parsed_args.fiwareservicepath,
+            code=parsed_args.code
+        )
         columns = response.keys()
         data = response.values()
         return columns, data
