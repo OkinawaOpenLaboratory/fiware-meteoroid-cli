@@ -62,7 +62,11 @@ class FunctionShow(ShowOne):
     def get_parser(self, prog_name):
         parser = super().get_parser(prog_name)
         parser.add_argument('id', help='function id')
-        parser.add_argument('-c', '--code', action='store_true', help='Show the source code')
+        parser.add_argument('-c',
+                            '--code',
+                            action='store_true',
+                            metavar='/file/path',
+                            help='Show the source code')
         return parser
 
     def take_action(self, parsed_args):
@@ -107,11 +111,14 @@ class FunctionCreate(ShowOne):
         parser.add_argument('file',
                             type=argparse.FileType('rb'),
                             help='Function file name')
-        parser.add_argument('-l', '--language', help='Program language')
+        parser.add_argument('-l', '--language',
+                            metavar='LANG:VERSION',
+                            help='Program language')
         parser.add_argument('-p', '--param',
                             nargs=2,
                             action=StoreKeyPair,
-                            help='Inject param to Function (--param KEY VALUE)')
+                            metearv='KEY VALUE',
+                            help='Inject param to Function')
         return parser
 
     def take_action(self, parsed_args):
