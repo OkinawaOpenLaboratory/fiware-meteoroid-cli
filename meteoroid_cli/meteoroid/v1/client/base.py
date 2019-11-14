@@ -10,7 +10,7 @@ class BaseClient(object):
         self.schema_endpoint = os.environ.get('METEOROID_SCHEMA_ENDPOINT',
                                               'http://localhost:8000/schema/?format=corejson')
 
-    def _action(self, fiware_service, fiware_service_path, keys, params=None):
+    def _action(self, fiware_service, fiware_service_path, keys, params=None, validate=True):
         headers = {
             'Fiware-Service': fiware_service,
             'Fiware-ServicePath': fiware_service_path
@@ -18,4 +18,4 @@ class BaseClient(object):
         transport = HTTPTransport(headers=headers)
         client = Client(transports=[transport])
         document = client.get(self.schema_endpoint)
-        return client.action(document, keys, params)
+        return client.action(document, keys, params, validate)
