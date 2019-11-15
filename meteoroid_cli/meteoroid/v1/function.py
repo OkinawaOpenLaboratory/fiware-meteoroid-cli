@@ -2,6 +2,7 @@ import sys
 import os
 import base64
 import argparse
+from cliff.command import Command
 from cliff.show import ShowOne
 from cliff.lister import Lister
 
@@ -40,7 +41,33 @@ EXT_LANG = {
 }
 
 
-class StoreKeyPair(argparse.Action):
+class FunctionRequestDataBuilder:
+
+    def build(self, parsed_args):
+        data = {}
+        if hasattr(parsed_args, 'name'):
+            data['name'] = parsed_args.name
+        _, extension = os.path.splitext(parsed_args.file.name)
+        if extension == ZIP_EXT or extension == JAVA_EXT or extension == BAL_BIN_EXT:
+            data['code'] = base64.b64encode(parsed_args.file.read()).decode("ascii")
+            data['binary'] = True
+        else:
+            data['code'] = parsed_args.file.read().decode("utf-8")
+        if parsed_args.language is not None:
+            data['language'] = parsed_args.language
+        else:
+            if extension != ZIP_EXT:
+                data['language'] = self.__get_default_language(extension)
+        if parsed_args.param is not None:
+            data['parameters'] = parsed_args.param
+        return data
+
+    def __get_default_language(self, extension):
+        language = EXT_LANG[extension]
+        return f'{language}:{DEFAULT}'
+
+
+class StoreKeyPairAction(argparse.Action):
     def __call__(self, parser, namespace, values, option_string=None):
         if namespace.param is None:
             param = []
@@ -62,10 +89,9 @@ class FunctionShow(ShowOne):
     def get_parser(self, prog_name):
         parser = super().get_parser(prog_name)
         parser.add_argument('id', help='function id')
-        parser.add_argument('-c',
+        parser.add_argument('-co',
                             '--code',
                             action='store_true',
-                            metavar='/file/path',
                             help='Show the source code')
         return parser
 
@@ -116,30 +142,46 @@ class FunctionCreate(ShowOne):
                             help='Program language')
         parser.add_argument('-p', '--param',
                             nargs=2,
-                            action=StoreKeyPair,
-                            metearv='KEY VALUE',
+                            action=StoreKeyPairAction,
+                            metavar='KEY VALUE',
                             help='Inject param to Function')
         return parser
 
     def take_action(self, parsed_args):
-        data = {
-            'name': parsed_args.name
-        }
-        _, extension = os.path.splitext(parsed_args.file.name)
-        if extension == ZIP_EXT or extension == JAVA_EXT or extension == BAL_BIN_EXT:
-            data['code'] = base64.b64encode(parsed_args.file.read())
-            data['binary'] = True
-        else:
-            data['code'] = parsed_args.file.read()
-
-        if parsed_args.language is not None:
-            data['language'] = parsed_args.language
-        else:
-            if extension != ZIP_EXT:
-                data['language'] = self.__get_default_language(extension)
-        if parsed_args.param is not None:
-            data['parameters'] = parsed_args.param
         response = FunctionClient().create_function(
+            fiware_service=parsed_args.fiwareservice,
+            fiware_service_path=parsed_args.fiwareservicepath,
+            data=FunctionRequestDataBuilder().build(parsed_args)
+        )
+        columns = response.keys()
+        data = response.values()
+        return columns, data
+
+
+class FunctionUpdate(ShowOne):
+    "Update a function"
+
+    @fiware_arguments
+    def get_parser(self, prog_name):
+        parser = super().get_parser(prog_name)
+        parser.add_argument('id', help='Function id')
+        parser.add_argument('file',
+                            type=argparse.FileType('rb'),
+                            help='Function file name')
+        parser.add_argument('-l', '--language',
+                            metavar='LANG:VERSION',
+                            help='Program language')
+        parser.add_argument('-p', '--param',
+                            nargs=2,
+                            action=StoreKeyPairAction,
+                            metavar='KEY VALUE',
+                            help='Inject param to Function')
+        return parser
+
+    def take_action(self, parsed_args):
+        data = FunctionRequestDataBuilder().build(parsed_args)
+        data['id'] = parsed_args.id
+        response = FunctionClient().update_function(
             fiware_service=parsed_args.fiwareservice,
             fiware_service_path=parsed_args.fiwareservicepath,
             data=data
@@ -148,6 +190,20 @@ class FunctionCreate(ShowOne):
         data = response.values()
         return columns, data
 
-    def __get_default_language(self, extension):
-        language = EXT_LANG[extension]
-        return f'{language}:{DEFAULT}'
+
+class FunctionDelete(Command):
+    "Delete a function"
+
+    @fiware_arguments
+    def get_parser(self, prog_name):
+        parser = super().get_parser(prog_name)
+        parser.add_argument('id', help='Function id')
+        return parser
+
+    def take_action(self, parsed_args):
+        FunctionClient().delete_function(
+            id=parsed_args.id,
+            fiware_service=parsed_args.fiwareservice,
+            fiware_service_path=parsed_args.fiwareservicepath,
+        )
+        self.app.stdout.write(f'Success delete function\n')
