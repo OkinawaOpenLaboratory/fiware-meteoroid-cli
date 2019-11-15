@@ -25,4 +25,19 @@ class FunctionClient(BaseClient):
         return self._action(fiware_service,
                             fiware_service_path,
                             ['functions', 'create'],
-                            data)
+                            data,
+                            validate=False)
+
+    def update_function(self, fiware_service, fiware_service_path, data):
+        return self._action(fiware_service,
+                            fiware_service_path,
+                            ['functions', 'update'],
+                            data,
+                            validate=False)
+
+    def delete_function(self, id, fiware_service, fiware_service_path):
+        return self._action(fiware_service,
+                            fiware_service_path,
+                            ['functions', 'delete'],
+                            {'id': id},
+                            validate=False)
