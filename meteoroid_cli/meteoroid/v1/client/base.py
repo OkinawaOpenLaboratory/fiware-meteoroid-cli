@@ -8,7 +8,7 @@ class BaseClient(object):
 
     def __init__(self):
         self.schema_endpoint = os.environ.get('METEOROID_SCHEMA_ENDPOINT',
-                                              'http://localhost:8000/schema/?format=corejson')
+                                              'http://localhost:3000/schema/?format=corejson')
 
     def _action(self, fiware_service, fiware_service_path, keys, params=None, validate=True):
         headers = {
