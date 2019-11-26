@@ -1,4 +1,3 @@
-import sys
 import os
 import base64
 import argparse
@@ -102,6 +101,8 @@ class FunctionShow(ShowOne):
             fiware_service_path=parsed_args.fiwareservicepath,
             code=parsed_args.code
         )
+        parameters = list(map(lambda x: dict(x), response['parameters']))
+        response['parameters'] = parameters
         columns = response.keys()
         data = response.values()
         return columns, data
@@ -153,6 +154,8 @@ class FunctionCreate(ShowOne):
             fiware_service_path=parsed_args.fiwareservicepath,
             data=FunctionRequestDataBuilder().build(parsed_args)
         )
+        parameters = list(map(lambda x: dict(x), response['parameters']))
+        response['parameters'] = parameters
         columns = response.keys()
         data = response.values()
         return columns, data
@@ -186,6 +189,8 @@ class FunctionUpdate(ShowOne):
             fiware_service_path=parsed_args.fiwareservicepath,
             data=data
         )
+        parameters = list(map(lambda x: dict(x), response['parameters']))
+        response['parameters'] = parameters
         columns = response.keys()
         data = response.values()
         return columns, data
