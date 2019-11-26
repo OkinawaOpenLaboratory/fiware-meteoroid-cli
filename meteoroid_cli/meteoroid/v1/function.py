@@ -144,7 +144,7 @@ class FunctionCreate(ShowOne):
         parser.add_argument('-p', '--param',
                             nargs=2,
                             action=StoreKeyPairAction,
-                            metavar='KEY VALUE',
+                            metavar=('KEY', 'VALUE'),
                             help='Inject param to Function')
         return parser
 
