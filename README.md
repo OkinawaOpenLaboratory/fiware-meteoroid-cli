@@ -12,13 +12,14 @@ pbr    5.4.3+
 
 ## Usage
 
-### Start pipenv shell and Install
+### Install meteoroid cli
 
 ```
-pipenv shell
-pipenv install
+pip install meteoroid-cli
 ```
+
 ### Example of use
+
 ```
 $ meteoroid result show 22
 +---------------+------------------+
@@ -31,3 +32,7 @@ $ meteoroid result show 22
 | functionId    | test_function_id |
 +---------------+------------------+
 ```
+
+### More usage
+
+[Meteoroid README](https://github.com/OkinawaOpenLaboratory/fiware-meteoroid/blob/master/README.md)
