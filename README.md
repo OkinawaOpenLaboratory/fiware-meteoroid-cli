@@ -18,6 +18,14 @@ pbr    5.4.3+
 pip install meteoroid-cli
 ```
 
+### Export METEOROID_SCHEMA_ENDPOINT (Option)
+
+Defualt endpoint (http://localhost:3000/schema/?format=corejson)
+
+```
+export METEOROID_SCHEMA_ENDPOINT=http://host:port/schema/?format=corejson
+```
+
 ### Example of use
 
 ```
