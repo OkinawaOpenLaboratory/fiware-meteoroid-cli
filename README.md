@@ -33,6 +33,30 @@ $ meteoroid result show 22
 +---------------+------------------+
 ```
 
-### More usage
+## Commands
+
+```
+Commands:
+  function create  Create a function
+  function delete  Delete a function
+  function list  Show function list
+  function show  Show a function
+  function update  Update a function
+
+  endpoint create  Create endpoint
+  endpoint delete  Delete endpoint
+  endpoint list  Show endpoint list
+  endpoint show  Show a endpoint
+
+  subscription create  Create subscription
+  subscription delete  Delete subscription
+  subscription list  Show subscription list
+  subscription show  Show a subscription
+
+  result list    Show result list
+  result show    Show a result
+```
+
+### How to use
 
 [Meteoroid README](https://github.com/OkinawaOpenLaboratory/fiware-meteoroid/blob/master/README.md)

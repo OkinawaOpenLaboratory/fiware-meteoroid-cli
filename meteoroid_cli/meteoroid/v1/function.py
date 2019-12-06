@@ -109,7 +109,7 @@ class FunctionShow(ShowOne):
 
 
 class FunctionList(Lister):
-    "Show result function"
+    "Show function list"
 
     @fiware_arguments
     def get_parser(self, prog_name):
