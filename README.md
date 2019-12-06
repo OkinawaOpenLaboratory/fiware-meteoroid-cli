@@ -35,28 +35,42 @@ $ meteoroid result show 22
 
 ## Commands
 
-```
-Commands:
-  function create  Create a function
-  function delete  Delete a function
-  function list  Show function list
-  function show  Show a function
-  function update  Update a function
+### Funciton
 
-  endpoint create  Create endpoint
-  endpoint delete  Delete endpoint
-  endpoint list  Show endpoint list
-  endpoint show  Show a endpoint
+| command | description |
+----|----
+| function show   | Show a function |
+| function list   | Show function list |
+| function create | Create a function |
+| function update | Update a function |
+| function delete | Delete a function |
 
-  subscription create  Create subscription
-  subscription delete  Delete subscription
-  subscription list  Show subscription list
-  subscription show  Show a subscription
+### Endpoint
 
-  result list    Show result list
-  result show    Show a result
-```
+| command | description |
+----|----
+| endpoint show | Show a endpoint |
+| endpoint list | Show endpoint list |
+| endpoint create | Create endpoint |
+| endpoint delete | Delete endpoint |
 
-### How to use
+### Description
+
+| command | description |
+----|----
+| subscription show | Show a subscription |
+| subscription list | Show subscription list |
+| subscription create | Create subscription |
+| subscription delete | Delete subscription |
+
+### Result
+
+| command | description |
+----|----
+| result list | Show result list |
+| result show | Show a result |
+
+
+## How to use meteoroid
 
 [Meteoroid README](https://github.com/OkinawaOpenLaboratory/fiware-meteoroid/blob/master/README.md)
