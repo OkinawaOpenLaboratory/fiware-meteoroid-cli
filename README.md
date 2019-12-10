@@ -1,7 +1,7 @@
-# Meteoroid Client
+# Meteoroid CLI
 
 ## Overview
-Meteoroid Client is a command-line client for Meteoroid that  
+Meteoroid CLI is a command-line-interface for Meteoroid that
 integrating Function as a Service(FaaS) capabilities in FIWARE.
 
 ## Requirements
@@ -12,14 +12,22 @@ pbr    5.4.3+
 
 ## Usage
 
-### Start virtualenv and Install 
+### Install meteoroid cli
 
 ```
-virtualenv -p python3.8 xxxx
-source xxx/bin/active
-pip install .
+pip install meteoroid-cli
 ```
-### Example of use　
+
+### Export METEOROID_SCHEMA_ENDPOINT (Option)
+
+Defualt endpoint (http://localhost:3000/schema/?format=corejson)
+
+```
+export METEOROID_SCHEMA_ENDPOINT=http://host:port/schema/?format=corejson
+```
+
+### Example of use
+
 ```
 $ meteoroid result show 22
 +---------------+------------------+
@@ -32,3 +40,45 @@ $ meteoroid result show 22
 | functionId    | test_function_id |
 +---------------+------------------+
 ```
+
+## Commands
+
+### Funciton
+
+| command | description |
+----|----
+| function show   | Show a function |
+| function list   | Show function list |
+| function create | Create a function |
+| function update | Update a function |
+| function delete | Delete a function |
+
+### Endpoint
+
+| command | description |
+----|----
+| endpoint show | Show a endpoint |
+| endpoint list | Show endpoint list |
+| endpoint create | Create endpoint |
+| endpoint delete | Delete endpoint |
+
+### Description
+
+| command | description |
+----|----
+| subscription show | Show a subscription |
+| subscription list | Show subscription list |
+| subscription create | Create subscription |
+| subscription delete | Delete subscription |
+
+### Result
+
+| command | description |
+----|----
+| result list | Show result list |
+| result show | Show a result |
+
+
+## How to use meteoroid
+
+[Meteoroid README](https://github.com/OkinawaOpenLaboratory/fiware-meteoroid/blob/master/README.md)
