@@ -1,5 +1,8 @@
 # Meteoroid CLI
 
+![PyPI](https://img.shields.io/pypi/v/meteoroid-cli)
+![GitHub](https://img.shields.io/github/license/OkinawaOpenLaboratory/fiware-meteoroid-cli?color=blue)
+
 ## Overview
 Meteoroid CLI is a command-line-interface for Meteoroid that
 integrating Function as a Service(FaaS) capabilities in FIWARE.
