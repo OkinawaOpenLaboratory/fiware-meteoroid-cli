@@ -187,6 +187,9 @@ class FunctionUpdate(ShowOne):
         parser.add_argument('-l', '--language',
                             metavar='LANG:VERSION',
                             help='Program language')
+        parser.add_argument('-m', '--main',
+                            metavar='MAIN_FILE_NAME',
+                            help='Main file name for java')
         parser.add_argument('-p', '--param',
                             nargs=2,
                             action=StoreKeyPairAction,
