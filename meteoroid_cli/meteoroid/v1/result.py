@@ -46,7 +46,8 @@ class ResultList(Lister):
             for index in range(len(results)):
                 results[index].pop("annotations")
         if len(results) > 0:
-            columns = results[0].keys()
-            data = [x.values() for x in results]
+            max_len = len(max(results, key=lambda x: len(x)))
+            columns = [x.keys() for x in results if max_len == len(x)][0]
+            data = [x.values() for x in results if max_len == len(x)]
             return columns, data
         return (), ()
