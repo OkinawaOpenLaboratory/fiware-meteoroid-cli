@@ -81,6 +81,14 @@ $ meteoroid result show 22
 | result list | Show result list |
 | result show | Show a result |
 
+### Schedule
+
+| command | description |
+----|----
+| schedule show | Show a schedule |
+| schedule list | Show schedule list |
+| schedule create | Create schedule |
+| schedule delete | Delete schedule |
 
 ## How to use meteoroid
 
