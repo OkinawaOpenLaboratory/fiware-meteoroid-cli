@@ -9,7 +9,7 @@ class MeteoroidCLI(App):
     def __init__(self):
         super(MeteoroidCLI, self).__init__(
             description='Meteoroid command line tool',
-            version='0.1',
+            version='0.2',
             command_manager=CommandManager('meteoroid.command'),
         )
 

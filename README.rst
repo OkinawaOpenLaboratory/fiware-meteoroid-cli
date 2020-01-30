@@ -75,7 +75,7 @@ endpoint create Create endpoint
 endpoint delete Delete endpoint
 =============== ==================
 
-Description
+Subscription
 ~~~~~~~~~~~
 
 =================== ======================
@@ -96,6 +96,18 @@ command     description
 result list Show result list
 result show Show a result
 =========== ================
+
+Schedule
+~~~~~~~~~~~
+
+=================== ======================
+command             description
+=================== ======================
+Schedule show       Show a Schedule
+Schedule list       Show Schedule list
+Schedule create     Create Schedule
+Schedule delete     Delete Schedule
+=================== ======================
 
 How to use meteoroid
 --------------------

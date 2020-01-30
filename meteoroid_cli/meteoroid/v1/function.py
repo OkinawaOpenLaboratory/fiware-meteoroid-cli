@@ -52,11 +52,21 @@ class FunctionRequestDataBuilder:
             data['binary'] = True
         else:
             data['code'] = parsed_args.file.read().decode("utf-8")
+
+        if parsed_args.main is not None:
+            data['main'] = parsed_args.main
+        else:
+            if extension == JAVA_EXT:
+                err_message = 'Java actions require --main (-m) to specify the fully-qualified name of the main class\n'
+                self.app.stdout.write(err_message)
+                raise Exception(err_message)
+
         if parsed_args.language is not None:
             data['language'] = parsed_args.language
         else:
             if extension != ZIP_EXT:
                 data['language'] = self.__get_default_language(extension)
+
         if parsed_args.param is not None:
             data['parameters'] = parsed_args.param
         return data
@@ -141,6 +151,9 @@ class FunctionCreate(ShowOne):
         parser.add_argument('-l', '--language',
                             metavar='LANG:VERSION',
                             help='Program language')
+        parser.add_argument('-m', '--main',
+                            metavar='MAIN_FILE_NAME',
+                            help='Main file name for java')
         parser.add_argument('-p', '--param',
                             nargs=2,
                             action=StoreKeyPairAction,
@@ -174,6 +187,9 @@ class FunctionUpdate(ShowOne):
         parser.add_argument('-l', '--language',
                             metavar='LANG:VERSION',
                             help='Program language')
+        parser.add_argument('-m', '--main',
+                            metavar='MAIN_FILE_NAME',
+                            help='Main file name for java')
         parser.add_argument('-p', '--param',
                             nargs=2,
                             action=StoreKeyPairAction,
