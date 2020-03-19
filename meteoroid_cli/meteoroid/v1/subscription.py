@@ -48,7 +48,7 @@ class SubscriptionList(Lister):
         return (), ()
 
 
-class SubscriptionCreate(Command):
+class SubscriptionCreate(ShowOne):
     "Create subscription"
 
     @fiware_arguments
@@ -64,7 +64,9 @@ class SubscriptionCreate(Command):
             orion_subscription=json.loads(parsed_args.orion_subscription),
             fiware_service=parsed_args.fiwareservice,
             fiware_service_path=parsed_args.fiwareservicepath)
-        return dict(subscription)
+        columns = subscription.keys()
+        data = subscription.values()
+        return columns, data
 
 
 class SubscriptionDelete(Command):
@@ -81,3 +83,4 @@ class SubscriptionDelete(Command):
             id=parsed_args.id,
             fiware_service=parsed_args.fiwareservice,
             fiware_service_path=parsed_args.fiwareservicepath)
+        self.app.stdout.write(f'Success delete subscription\n')
