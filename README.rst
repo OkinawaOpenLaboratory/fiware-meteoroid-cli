@@ -76,7 +76,7 @@ endpoint delete Delete endpoint
 =============== ==================
 
 Subscription
-~~~~~~~~~~~
+~~~~~~~~~~~~
 
 =================== ======================
 command             description
