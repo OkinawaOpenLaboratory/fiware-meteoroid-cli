@@ -3,8 +3,6 @@ import json
 from cliff.command import Command
 from cliff.lister import Lister
 from cliff.show import ShowOne
-from coreapi import Client
-from coreapi.transports import HTTPTransport
 
 from meteoroid_cli.meteoroid.v1.client.subscription_client import SubscriptionClient
 from meteoroid_cli.meteoroid.v1.libs.decorator import fiware_arguments
