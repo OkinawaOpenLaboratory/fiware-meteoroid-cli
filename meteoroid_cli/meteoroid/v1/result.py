@@ -1,7 +1,5 @@
 from cliff.show import ShowOne
 from cliff.lister import Lister
-from coreapi import Client
-from coreapi.transports import HTTPTransport
 
 from meteoroid_cli.meteoroid.v1.client.result_client import ResultClient
 from meteoroid_cli.meteoroid.v1.libs.decorator import fiware_arguments

@@ -58,7 +58,8 @@ class FunctionRequestDataBuilder:
             data['main'] = parsed_args.main
         else:
             if extension == JAVA_EXT:
-                err_message = 'Java actions require --main (-m) to specify the fully-qualified name of the main class'
+                err_message = ('Java actions require --main (-m) to specify '
+                               'the fully-qualified name of the main class')
                 raise CommandError(err_message)
 
         if parsed_args.language is not None:
