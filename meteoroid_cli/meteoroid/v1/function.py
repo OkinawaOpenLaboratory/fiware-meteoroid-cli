@@ -6,6 +6,7 @@ from cliff.show import ShowOne
 from cliff.lister import Lister
 
 from meteoroid_cli.meteoroid.v1.client.function_client import FunctionClient
+from meteoroid_cli.meteoroid.v1.errors import CommandError
 from meteoroid_cli.meteoroid.v1.libs.decorator import fiware_arguments
 
 NODE_JS_EXT = '.js'
@@ -57,9 +58,9 @@ class FunctionRequestDataBuilder:
             data['main'] = parsed_args.main
         else:
             if extension == JAVA_EXT:
-                err_message = 'Java actions require --main (-m) to specify the fully-qualified name of the main class\n'
-                self.app.stdout.write(err_message)
-                raise Exception(err_message)
+                err_message = ('Java actions require --main (-m) to specify '
+                               'the fully-qualified name of the main class')
+                raise CommandError(err_message)
 
         if parsed_args.language is not None:
             data['language'] = parsed_args.language
@@ -162,16 +163,20 @@ class FunctionCreate(ShowOne):
         return parser
 
     def take_action(self, parsed_args):
-        response = FunctionClient().create_function(
-            fiware_service=parsed_args.fiwareservice,
-            fiware_service_path=parsed_args.fiwareservicepath,
-            data=FunctionRequestDataBuilder().build(parsed_args)
-        )
-        parameters = list(map(lambda x: dict(x), response['parameters']))
-        response['parameters'] = parameters
-        columns = response.keys()
-        data = response.values()
-        return columns, data
+        try:
+            response = FunctionClient().create_function(
+                fiware_service=parsed_args.fiwareservice,
+                fiware_service_path=parsed_args.fiwareservicepath,
+                data=FunctionRequestDataBuilder().build(parsed_args)
+            )
+            parameters = list(map(lambda x: dict(x), response['parameters']))
+            response['parameters'] = parameters
+            columns = response.keys()
+            data = response.values()
+            return columns, data
+        except CommandError as e:
+            self.app.stdout.write(e.args[0])
+            return (), ()
 
 
 class FunctionUpdate(ShowOne):
@@ -200,16 +205,20 @@ class FunctionUpdate(ShowOne):
     def take_action(self, parsed_args):
         data = FunctionRequestDataBuilder().build(parsed_args)
         data['id'] = parsed_args.id
-        response = FunctionClient().update_function(
-            fiware_service=parsed_args.fiwareservice,
-            fiware_service_path=parsed_args.fiwareservicepath,
-            data=data
-        )
-        parameters = list(map(lambda x: dict(x), response['parameters']))
-        response['parameters'] = parameters
-        columns = response.keys()
-        data = response.values()
-        return columns, data
+        try:
+            response = FunctionClient().update_function(
+                fiware_service=parsed_args.fiwareservice,
+                fiware_service_path=parsed_args.fiwareservicepath,
+                data=data
+            )
+            parameters = list(map(lambda x: dict(x), response['parameters']))
+            response['parameters'] = parameters
+            columns = response.keys()
+            data = response.values()
+            return columns, data
+        except CommandError as e:
+            self.app.stdout.write(e.args[0])
+            return (), ()
 
 
 class FunctionDelete(Command):

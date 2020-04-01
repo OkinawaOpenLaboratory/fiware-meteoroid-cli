@@ -1,20 +1,19 @@
-import argparse
 import json
 from cliff.command import Command
 from cliff.lister import Lister
 from cliff.show import ShowOne
-from coreapi import Client
 
 from meteoroid_cli.meteoroid.v1.client.schedule_client import ScheduleClient
 from meteoroid_cli.meteoroid.v1.libs.decorator import fiware_arguments
+
 
 class ScheduleRequestDataBuilder:
 
     def build(self, parsed_args):
         data = {}
-        data['name']= parsed_args.name
-        data['schedule']= parsed_args.schedule
-        data['function']= parsed_args.function
+        data['name'] = parsed_args.name
+        data['schedule'] = parsed_args.schedule
+        data['function'] = parsed_args.function
         if parsed_args.startDate is not None:
             data['startDate'] = parsed_args.startDate
         if parsed_args.stopDate is not None:
@@ -22,6 +21,7 @@ class ScheduleRequestDataBuilder:
         if parsed_args.trigger_payload is not None:
             data['trigger_payload'] = json.loads(parsed_args.trigger_payload)
         return data
+
 
 class ScheduleShow(ShowOne):
     "Show a schedule"
@@ -60,6 +60,7 @@ class ScheduleList(Lister):
             return columns, data
         return (), ()
 
+
 class ScheduleCreate(ShowOne):
     "Create schedule"
 
@@ -87,6 +88,7 @@ class ScheduleCreate(ShowOne):
         data = response.values()
         return columns, data
 
+
 class ScheduleDelete(Command):
     "Delete schedule"
 
@@ -102,3 +104,4 @@ class ScheduleDelete(Command):
             fiware_service=parsed_args.fiwareservice,
             fiware_service_path=parsed_args.fiwareservicepath,
         )
+        self.app.stdout.write(f'Success delete schedule\n')

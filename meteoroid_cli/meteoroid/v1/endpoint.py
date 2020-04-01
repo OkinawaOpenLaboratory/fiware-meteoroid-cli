@@ -1,8 +1,6 @@
 from cliff.command import Command
 from cliff.lister import Lister
 from cliff.show import ShowOne
-from coreapi import Client
-from coreapi.transports import HTTPTransport
 
 from meteoroid_cli.meteoroid.v1.client.endpoint_client import EndpointClient
 from meteoroid_cli.meteoroid.v1.libs.decorator import fiware_arguments
@@ -46,7 +44,7 @@ class EndpointList(Lister):
         return (), ()
 
 
-class EndpointCreate(Command):
+class EndpointCreate(ShowOne):
     "Create endpoint"
 
     @fiware_arguments
@@ -66,7 +64,9 @@ class EndpointCreate(Command):
             function_id=parsed_args.function_id,
             fiware_service=parsed_args.fiwareservice,
             fiware_service_path=parsed_args.fiwareservicepath)
-        return dict(endpoint)
+        columns = endpoint.keys()
+        data = endpoint.values()
+        return columns, data
 
 
 class EndpointDelete(Command):
@@ -83,3 +83,4 @@ class EndpointDelete(Command):
             id=parsed_args.id,
             fiware_service=parsed_args.fiwareservice,
             fiware_service_path=parsed_args.fiwareservicepath)
+        self.app.stdout.write(f'Success delete endpoint\n')

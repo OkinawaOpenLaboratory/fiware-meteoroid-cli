@@ -1,0 +1,9 @@
+language: python
+
+python:
+  - "3.8"
+
+install: "pip3 install flake8"
+
+script:
+  - flake8 ./meteoroid_cli/
