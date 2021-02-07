@@ -83,4 +83,4 @@ class EndpointDelete(Command):
             id=parsed_args.id,
             fiware_service=parsed_args.fiwareservice,
             fiware_service_path=parsed_args.fiwareservicepath)
-        self.app.stdout.write(f'Success delete endpoint\n')
+        self.app.stdout.write('Success delete endpoint\n')

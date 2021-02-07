@@ -104,4 +104,4 @@ class ScheduleDelete(Command):
             fiware_service=parsed_args.fiwareservice,
             fiware_service_path=parsed_args.fiwareservicepath,
         )
-        self.app.stdout.write(f'Success delete schedule\n')
+        self.app.stdout.write('Success delete schedule\n')
