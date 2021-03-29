@@ -17,7 +17,7 @@ class BaseClient(object):
             'Fiware-ServicePath': fiware_service_path
         }
         if self.auth_token is not None:
-            headers['Authorization'] = f'Bearer {self.auth_token}'
+            headers['Authorization'] = self.auth_token
         transport = HTTPTransport(headers=headers)
         client = Client(transports=[transport])
         document = client.get(self.schema_endpoint)
